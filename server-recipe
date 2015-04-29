@@ -1,0 +1,20 @@
+
+kar.yt server recipe
+
+
+kar.yt domain registry: 101domain.com
+DNS service provider: dyndns.com
+GitHub repository: https://github.com/rickseeger/karyt.git
+
+AWS config:
+Ubuntu Server 14.04 64-bit
+Free tier - t2.micro
+
+Software
+$ sudo apt-get update
+$ sudo apt-get install git golang emacs
+
+
+Web directory: /var/www/karyt
+
+
