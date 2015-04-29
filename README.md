@@ -23,11 +23,16 @@ Create a new alias. Required parameters: alias, address
 The alias must consist of alphanumeric characters only, and the Bitcoin address must be valid (the checksum is verified).
 
 Possible responses:
+    { "status_code": 200, "status_txt": "OK" }
+    { "status_code": 400, "status_txt": "Missing argument: alias" }
+    { "status_code": 400, "status_txt": "Missing argument: address" }
+    { "status_code": 400, "status_txt": "Name contains non-alphanumeric characters" }
+    { "status_code": 400, "status_txt": "Invalid Bitcoin address" }
+    { "status_code": 503, "status_txt": "Rate limit exceeded" }
 
-- success
-- missing argument 'alias'
-- missing argument 'address'
-- name contains non-alphanumeric characters
-- invalid Bitcoin address
-- rate limited 
+
+### /[alias]
+
+Performs a server side redirect to a "bitcoin:" address. If the alias doesn't exist, a 404 is returned.
+
 
