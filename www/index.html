@@ -3,22 +3,22 @@
 <head>
     <meta charset="utf-8">
     <title>kar.yt</title>
-    <link rel="stylesheet" media="screen" href="styles.css" >
+    <link rel="stylesheet" media="screen" href="/static/styles.css" >
 </head>
 <body>
 
-<form class="register_form" action="" method="post" name="register_form">
+<form class="register_form" action="/alias/add" method="post" name="register_form">
 <ul>
     <li>
-         <h2><img width=60 src='images/karyt-icon.png'>&nbsp;kar.yt: Connect a Bitcoin and email address</h2>
+         <h2><img width=60 src='/static/images/karyt-icon.png'>&nbsp;kar.yt: Connect a Bitcoin and email address</h2>
     </li>
 <li>
     <label>Email address</label>
-    <input type="text" name="email" size=50 placeholder="john.doe@example.com" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}"/>
+    <input type="text" name="alias" size=50 placeholder="john.doe@example.com" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}"/>
 </li>
 <li>
-    <label for="email">Bitcoin address</label>
-    <input type="text" name="payment" size=50 placeholder="15tqoVno7i3qH7XkcCpN1JrHDZTm2nHVow" required pattern="[13][a-km-zA-HJ-NP-Z0-9]{26,33}"/>
+    <label>Bitcoin address</label>
+    <input type="text" name="pubkey" size=50 placeholder="15tqoVno7i3qH7XkcCpN1JrHDZTm2nHVow" required pattern="[13][a-km-zA-HJ-NP-Z0-9]{26,33}"/>
 </li>
 <li>
     <button class="submit" type="submit">Connect</button>

@@ -1,0 +1,1 @@
+@reboot (cd /home/ubuntu/karyt/www; ./server.py >> /var/log/karyt/server.log 2>&1)

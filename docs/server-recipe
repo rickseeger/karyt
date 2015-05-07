@@ -1,20 +1,17 @@
 
 kar.yt server recipe
 
-
 kar.yt domain registry: 101domain.com
 DNS service provider: dyndns.com
 GitHub repository: https://github.com/rickseeger/karyt.git
-
-AWS config:
-Ubuntu Server 14.04 64-bit
-Free tier - t2.micro
+AWS config: Ubuntu Server 14.04 64-bit, t2.micro (free tier)
 
 Software
 $ sudo apt-get update
-$ sudo apt-get install git golang emacs
+$ sudo apt-get install git emacs mysql-server python-pip python-mysql.connector
+$ sudo pip-install bottle
 
-
-Web directory: /var/www/karyt
-
-
+Config
+- Extract code base to ~ubuntu, web root is then: /home/ubuntu/karyt/www
+- Place db password in protected directory: /home/ubuntu/auth/.credentials.db
+- Configure root crontab to start bottle server on reboot
