@@ -10,6 +10,7 @@ Software
 $ sudo apt-get update
 $ sudo apt-get install git emacs mysql-server python-pip python-mysql.connector
 $ sudo pip-install bottle
+$ sudo pip install sendgrid
 
 Config
 - Extract code base to ~ubuntu, web root is then: /home/ubuntu/karyt/www

@@ -3,6 +3,7 @@
 from config import dbinfo, svrinfo
 from bottle import route, run, static_file, post, request
 import mysql.connector
+from common import rand_string, send_confirmation
 
 
 @route('/')
@@ -15,27 +16,44 @@ def server_static(filepath):
     return static_file(filepath, root=svrinfo['root'])
 
 
-@post('/alias/add')
-def add_alias():
-    alias = request.forms.get('alias')
-    pubkey = request.forms.get('pubkey')
-    ip = request.environ.get('REMOTE_ADDR')
-    query = (" REPLACE INTO aliases (alias, pubkey, ip, created) VALUES (%s, %s, %s, now()) ")
-    vals = (alias, pubkey, ip)
+@route('/confirm/<key>')
+def confirm(key):
+    query = (" UPDATE aliases SET confirmed = 1 WHERE confirmkey = %s ")
+    vals = (key,)
     conn = mysql.connector.connect(**dbinfo)
     cursor = conn.cursor()
     cursor.execute(query, vals)
     conn.commit()
     cursor.close()
     conn.close()
-    return static_file('landing.html', root=svrinfo['root'])
+    return static_file('alias_confirmed.html', root=svrinfo['root'])
+
+
+@post('/alias/add')
+def add_alias():
+    alias = request.forms.get('alias')
+    pubkey = request.forms.get('pubkey')
+    ip = request.environ.get('REMOTE_ADDR')
+    confirmkey = rand_string(32)
+    query = (" REPLACE INTO aliases (alias, pubkey, ip, created, confirmed, confirmkey) "
+             " VALUES (%s, %s, %s, now(), 0, %s) ")
+    vals = (alias, pubkey, ip, confirmkey)
+    conn = mysql.connector.connect(**dbinfo)
+    cursor = conn.cursor()
+    cursor.execute(query, vals)
+    conn.commit()
+    cursor.close()
+    conn.close()
+    send_confirmation(alias, confirmkey)
+    return static_file('alias_created.html', root=svrinfo['root'])
 
 
 @route('/<alias>')
 def get_alias(alias):
     query = (" SELECT pubkey FROM aliases "
-             " WHERE alias = %s OR alias = %s")
-    vals = (alias, alias)
+             " WHERE alias = %s "
+             " AND confirmed = 1 " )
+    vals = (alias, )
     conn = mysql.connector.connect(**dbinfo)
     cursor = conn.cursor()
     cursor.execute(query, vals)
