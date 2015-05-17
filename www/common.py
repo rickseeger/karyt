@@ -1,5 +1,6 @@
 import random
 import sendgrid
+import sys
 
 # This script uses the SendGrid Python Library
 # https://github.com/sendgrid/sendgrid-python
@@ -16,7 +17,7 @@ def rand_string(length):
 
 def send_confirmation(email_address, confirm_key):
     api_user = 'rseeger'
-    api_key = 'cyber1ad'
+    api_key = open('/home/ubuntu/auth/sendgrid', 'r').read()
 
     email_to = email_address
     email_bcc = 'rick.seeger@gmail.com'
@@ -35,7 +36,7 @@ def send_confirmation(email_address, confirm_key):
     message.set_subject(subject)
     message.set_html(body)
 
-    print 'Sending confirmation email to:', email_to
+    sys.stderr.write('\n> sending confirmation email to: {}\n'.format(email_to))
     (http_status_code, message) = sg.send(message)
-    print 'http_status_code:', http_status_code
-    print 'server_response:', message
+    sys.stderr.write('> response_code: {}\n'.format(http_status_code))
+    sys.stderr.write('> response_json: {}\n\n'.format(message))
