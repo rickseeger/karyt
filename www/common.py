@@ -11,7 +11,7 @@ def rand_string(length):
     s = ''
     for i in range(length):
         idx =  random.randint(0,len(txt)-1)
-        s += txt[idx-1:idx]
+        s += txt[idx:idx+1]
     return(s)
 
 
